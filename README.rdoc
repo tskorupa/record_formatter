@@ -1,0 +1,37 @@
+record_formatter
+===============
+
+RecordFormatter plucks columns from records given a scope
+
+Installation
+-----------
+
+    gem install record_formatter
+
+or by including this line in your Gemfile
+
+    gem "record_formatter", :git => "git://github.com/tskorupa/record_formatter.git"
+
+Usage
+-----
+
+    require 'record_formatter'
+
+    Class Foo < ActiveRecord::Base
+      scope :recently_updated, -> { where("updated_at >= ?", 5.days.ago) }
+
+      acts_as_record_formatter scope: :recently_updated do
+        columns :id, :created_at, :updated_at
+        columns :name, alias: :foo_name
+      end
+    end
+
+    irb(main):001:0> Foo.deployable
+      Foo Load (1.0ms)  SELECT "foos".* FROM "foos"  WHERE (updated_at >= '2014-11-29 19:34:08.363155')
+    => #<ActiveRecord::Relation []>
+    irb(main):002:0>
+
+TODO
+================
+
+* allow to set custom name scope
