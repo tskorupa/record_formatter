@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = "record_formatter"
   s.version     = RecordFormatter::VERSION
   s.authors     = ["Tomasz Skorupa"]
-  s.summary     = "RecordFormatter plucks columns from records given a scope"
+  s.summary     = "RecordFormatter plucks columns from records given a scope, aliased if needed and returns an activerecord relation"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]

@@ -1,7 +1,7 @@
 record_formatter
 ===============
 
-RecordFormatter plucks columns from records given a scope
+RecordFormatter plucks columns from records given a scope, aliased if needed and returns an activerecord relation
 
 Installation
 -----------
