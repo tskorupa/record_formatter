@@ -6,16 +6,12 @@ RecordFormatter plucks columns from records given a scope, aliased if needed and
 Installation
 -----------
 
-    gem install record_formatter
+Include this line in your Gemfile
 
-or by including this line in your Gemfile
-
-    gem "record_formatter", :git => "git://github.com/tskorupa/record_formatter.git"
+    gem "record_formatter", github: "tskorupa/record_formatter"
 
 Usage
 -----
-
-    require 'record_formatter'
 
     Class Foo < ActiveRecord::Base
       scope :recently_updated, -> { where("updated_at >= ?", 5.days.ago) }
