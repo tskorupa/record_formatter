@@ -21,7 +21,7 @@ module RecordFormatter
       end
     end
 
-    def deployable_records
+    def format_records
       @klass.select(columns_for_select).send(defined_scope)
     end
 

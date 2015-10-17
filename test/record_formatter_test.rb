@@ -3,27 +3,27 @@ require 'record_formatter'
 
 class RecordFormatterTest < ActiveSupport::TestCase
 
-  test "dummy class does not define deployable" do
+  test "dummy class does not define format_records" do
     assert_raises(NoMethodError) do
-      dummy_class.deployable
+      dummy_class.format_records
     end
   end
 
-  test "dummy class + included module does not define deployable" do
+  test "dummy class + included module does not define format_records" do
     assert_raises(NoMethodError) do
-      dummy_class_with_included_module.deployable
+      dummy_class_with_included_module.format_records
     end
   end
 
-  test "dummy class inheriting from ActiveRecord::Base does not define deployable" do
+  test "dummy class inheriting from ActiveRecord::Base does not define format_records" do
     assert_raises(NoMethodError) do
-      dummy_class_inheriting_active_record.deployable
+      dummy_class_inheriting_active_record.format_records
     end
   end
 
-  test "dummy class inheriting from ActiveRecord::Base + acts_as_record_formatter responds to deployable scope" do
-    RecordFormatter::Base.any_instance.expects(:deployable_records).once.returns('result')
-    dummy_class_with_acts_as.deployable
+  test "dummy class inheriting from ActiveRecord::Base + acts_as_record_formatter responds to format_records scope" do
+    RecordFormatter::Base.any_instance.expects(:format_records).once.returns('result')
+    dummy_class_with_acts_as.format_records
   end
 
   private

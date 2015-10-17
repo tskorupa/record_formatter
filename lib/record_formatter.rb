@@ -22,8 +22,8 @@ module RecordFormatter
   end
 
   module LocalClassMethods
-    def deployable
-      @record_formatter.deployable_records
+    def format_records
+      @record_formatter.format_records
     end
   end
 
