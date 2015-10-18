@@ -36,4 +36,5 @@ And apply the method as such,
 TODO
 ================
 
-* Add ability to set virtual columns and hardcoded values
+- Add ability to set virtual columns and hardcoded values
+- Add ability to format column values (i.e for a datetime column, value.strftime("%Y-%m-%d")
