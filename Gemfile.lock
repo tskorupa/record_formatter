@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    record_formatter (0.0.2)
+    record_formatter (0.0.3)
       activesupport (>= 4.1.6)
 
 GEM
@@ -90,3 +90,6 @@ DEPENDENCIES
   rails (>= 4.1.8)
   record_formatter!
   sqlite3
+
+BUNDLED WITH
+   1.10.6

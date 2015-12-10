@@ -33,6 +33,14 @@ And apply the method as such,
       Foo Load (0.2ms)  SELECT id AS id, created_at AS created_at, name AS foo_name FROM "foos" WHERE (updated_at >= '2015-10-12 17:00:04.548358')
     => [{"id"=>1, "created_at"=>Sat, 17 Oct 2015 16:55:55 UTC +00:00, "foo_name"=>"bar"}]
 
+To set a custom scope to retrieve formatted records by (defaults to #format_records):
+
+  class Foo < ActiveRecord::Base
+    acts_as_record_formatter custom_method_name: :foobarbaz
+  end
+
+  >> Foo.foobarbaz
+
 TODO
 ================
 
