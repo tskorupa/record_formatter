@@ -2,41 +2,42 @@ require 'test_helper'
 require 'record_formatter/base'
 
 class RecordFormatterBaseTest < ActiveSupport::TestCase
-
   DummyClass = Class.new(ActiveRecord::Base)
 
-  test "format_records with defaults" do
-    DummyClass.expects( RecordFormatter::Base::DEFAULT_SCOPE ).once
-    DummyClass.expects(:select).with( all_of([]) ).once.returns(DummyClass)
-
-    formatter = RecordFormatter::Base.new DummyClass
-    formatter.format_records
+  test 'format records with defaults' do
+    should_expect_call_to method: RecordFormatter::Base::DEFAULT_SCOPE
+    should_expect_call_to method: :select, args: []
+    evaluate_formatter
   end
 
-  test "format_records with plucked columns" do
-    DummyClass.expects( RecordFormatter::Base::DEFAULT_SCOPE ).once
-    DummyClass.expects(:select).with( all_of(["id AS id"]) ).once.returns(DummyClass)
-    formatter = RecordFormatter::Base.new DummyClass
-
-    formatter.columns :id
-    formatter.format_records
+  test 'format records with plucked columns' do
+    should_expect_call_to method: RecordFormatter::Base::DEFAULT_SCOPE
+    should_expect_call_to method: :select, args: ['id AS id']
+    evaluate_formatter { columns :id }
   end
 
-  test "format_records with aliased columns" do
-    DummyClass.expects( RecordFormatter::Base::DEFAULT_SCOPE ).once
-    DummyClass.expects(:select).with( all_of(["id AS foo"]) ).once.returns(DummyClass)
-    formatter = RecordFormatter::Base.new DummyClass
-
-    formatter.columns :id, alias: :foo
-    formatter.format_records
+  test 'format records with aliased columns' do
+    should_expect_call_to method: RecordFormatter::Base::DEFAULT_SCOPE
+    should_expect_call_to method: :select, args: ['id AS foo']
+    evaluate_formatter { columns :id, alias: :foo }
   end
 
-  test "format_records with custom scope" do
-    DummyClass.expects(:foo).once
-    DummyClass.expects(:select).with( all_of([]) ).once.returns(DummyClass)
-
-    formatter = RecordFormatter::Base.new DummyClass, scope: :foo
-    formatter.format_records
+  test 'format records with custom scope' do
+    should_expect_call_to method: :foo
+    should_expect_call_to method: :select, args: []
+    evaluate_formatter args: { scope: :foo }
   end
 
+  private
+
+  def should_expect_call_to klass: DummyClass, method:, args: nil
+    expected_args = all_of(args)
+    klass.expects(method).with(expected_args).once.returns(klass)
+  end
+
+  def evaluate_formatter method: :format_records, args: {}, &block
+    formatter = RecordFormatter::Base.new(DummyClass, args)
+    formatter.instance_eval(&block) if block
+    formatter.send method
+  end
 end
