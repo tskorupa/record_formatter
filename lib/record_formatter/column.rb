@@ -2,12 +2,11 @@ require 'active_support/core_ext/hash/slice'
 
 module RecordFormatter
   class Column
-
     VALID_OPTIONS = %i(alias)
 
     attr_reader :name, :options
 
-    def initialize name, options={}
+    def initialize name, options = {}
       @name = name
       @options = options.slice!(VALID_OPTIONS)
     end
@@ -22,6 +21,5 @@ module RecordFormatter
       return options[:alias] if options.key? :alias
       name
     end
-
   end
 end
